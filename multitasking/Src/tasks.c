@@ -93,9 +93,12 @@ void parsing_task(){
 		memset((char*)g_uart_rx_interrupt,'\0',sizeof(g_uart_rx_interrupt)/sizeof(g_uart_rx_interrupt[0]));
 		g_index = 0;
 	}else if(strncmp(g_uart_rx_interrupt,ledon,6) == 0){
-		g_led_on = char2int(&g_uart_rx_interrupt[6]);
+		if(echo == 1)
+			g_led_on = char2int(&g_uart_rx_interrupt[6]);
+
 	}else if(strncmp(g_uart_rx_interrupt,ledoff,7) == 0){
-		g_led_off = char2int(&g_uart_rx_interrupt[7]);
+		if(echo == 1)
+			g_led_off = char2int(&g_uart_rx_interrupt[7]);
 	}
 	echo_task();
 }
